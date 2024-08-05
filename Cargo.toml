@@ -6,8 +6,10 @@ resolver = "2"
 
 [workspace.dependencies]
 #gpui = { git = "https://github.com/zed-industries/zed.git", branch = "export-platform-window" }
+command_palette = { git = "https://github.com/zed-industries/zed.git" }
 gpui = { git = "https://github.com/zed-industries/zed.git" }
 settings = { git = "https://github.com/zed-industries/zed.git" }
+
 ui = { path = "crates/ui" }
 story = { path = "crates/story" }
 workspace = { path = "crates/workspace" }
