@@ -4,6 +4,7 @@ use anyhow::Result;
 use app_state::AppState;
 use assets::Assets;
 use gpui::{actions, App, AppContext, KeyBinding, Menu, MenuItem};
+use settings::{handle_settings_file_changes, watch_config_file, Settings, SettingsStore};
 use ui::input::{Copy, Cut, Paste, Redo, Undo};
 
 mod app_state;
