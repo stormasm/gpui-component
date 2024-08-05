@@ -34,7 +34,6 @@ pub mod tab;
 pub mod table;
 pub mod theme;
 pub mod tooltip;
-pub mod webview;
 
 // re-export
 pub use wry;
@@ -60,5 +59,4 @@ pub fn init(cx: &mut gpui::AppContext) {
     popup_menu::init(cx);
     context_menu::init(cx);
     table::init(cx);
-    webview::init(cx)
 }
