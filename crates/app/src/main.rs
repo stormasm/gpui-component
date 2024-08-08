@@ -63,7 +63,7 @@ fn main() {
 }
 
 fn load_keymap(cx: &mut AppContext) {
-    KeymapFile::load_asset("keymaps/storybook.json", cx).unwrap();
+    KeymapFile::load_asset("keymaps/default.json", cx).unwrap();
 }
 
 fn quit(_: &Quit, cx: &mut AppContext) {

@@ -985,7 +985,7 @@ dependencies = [
 [[package]]
 name = "clock"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "chrono",
  "serde",
@@ -1035,7 +1035,7 @@ dependencies = [
 [[package]]
 name = "collections"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "rustc-hash",
 ]
@@ -1457,7 +1457,7 @@ dependencies = [
 [[package]]
 name = "derive_refineable"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1989,7 +1989,7 @@ dependencies = [
 [[package]]
 name = "fs"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "ashpd",
@@ -2022,7 +2022,7 @@ dependencies = [
 [[package]]
 name = "fsevent"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "bitflags 2.6.0",
  "core-foundation",
@@ -2369,7 +2369,7 @@ dependencies = [
 [[package]]
 name = "git"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2551,7 +2551,7 @@ dependencies = [
 [[package]]
 name = "gpui"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "as-raw-xcb-connection",
@@ -2653,7 +2653,7 @@ dependencies = [
 [[package]]
 name = "gpui_macros"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2866,7 +2866,7 @@ dependencies = [
 [[package]]
 name = "http_client"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "derive_more",
@@ -3503,7 +3503,7 @@ dependencies = [
 [[package]]
 name = "media"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "bindgen",
@@ -4080,7 +4080,7 @@ dependencies = [
 [[package]]
 name = "paths"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "dirs 4.0.0",
  "util",
@@ -4710,7 +4710,7 @@ dependencies = [
 [[package]]
 name = "refineable"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "derive_refineable",
 ]
@@ -4760,7 +4760,7 @@ checksum = "7a66a03ae7c801facd77a29370b4faec201768915ac14a721ba36f20bc9c209b"
 [[package]]
 name = "release_channel"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "gpui",
  "once_cell",
@@ -4792,7 +4792,7 @@ dependencies = [
 [[package]]
 name = "rope"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "arrayvec",
  "log",
@@ -5071,7 +5071,7 @@ checksum = "d369a96f978623eb3dc28807c4852d6cc617fed53da5d3c400feff1ef34a714a"
 [[package]]
 name = "semantic_version"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "serde",
@@ -5203,7 +5203,7 @@ dependencies = [
 [[package]]
 name = "settings"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "collections",
@@ -5543,7 +5543,7 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 [[package]]
 name = "sum_tree"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "arrayvec",
  "log",
@@ -5770,7 +5770,7 @@ dependencies = [
 [[package]]
 name = "text"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "clock",
@@ -6246,7 +6246,7 @@ checksum = "06abde3611657adf66d383f00b093d7faecc7fa57071cce2578660c9f1010821"
 [[package]]
 name = "util"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed.git#76d58ac2952c3e136b52092c8cb43b5ed6d3a479"
+source = "git+https://github.com/stormasm/zed.git?branch=key_dispatch_debug#d991cb8681a534038c5d69fd32556132eb892285"
 dependencies = [
  "anyhow",
  "async-fs 1.6.0",

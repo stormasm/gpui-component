@@ -5,8 +5,8 @@ default-members = ["crates/app"]
 resolver = "2"
 
 [workspace.dependencies]
-gpui = { git = "https://github.com/zed-industries/zed.git" }
-settings = { git = "https://github.com/zed-industries/zed.git" }
+gpui = { git = "https://github.com/stormasm/zed.git", branch = "key_dispatch_debug" }
+settings = { git = "https://github.com/stormasm/zed.git", branch = "key_dispatch_debug" }
 ui = { path = "crates/ui" }
 story = { path = "crates/story" }
 workspace = { path = "crates/workspace" }
