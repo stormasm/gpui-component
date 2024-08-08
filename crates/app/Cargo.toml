@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 gpui.workspace = true
+settings.workspace = true
 anyhow.workspace = true
 rust-embed = "8"
 log.workspace = true

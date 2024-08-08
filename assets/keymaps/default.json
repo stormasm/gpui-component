@@ -1,0 +1,8 @@
+[
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-w": "pane::CloseActiveItem"
+    }
+  }
+]
