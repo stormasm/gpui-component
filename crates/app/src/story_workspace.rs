@@ -3,11 +3,8 @@ use gpui::*;
 use prelude::FluentBuilder as _;
 use serde::Deserialize;
 use std::{sync::Arc, time::Duration};
-use story::{
-    ButtonStory, CalendarStory, DropdownStory, IconStory, ImageStory, InputStory, ListStory,
-    ModalStory, PopupStory, ProgressStory, ResizableStory, ScrollableStory, StoryContainer,
-    SwitchStory, TableStory, TextStory, TooltipStory,
-};
+use story::{PopupStory, StoryContainer};
+
 use ui::{
     button::{Button, ButtonStyled as _},
     color_picker::{ColorPicker, ColorPickerEvent},
