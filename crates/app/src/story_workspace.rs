@@ -212,12 +212,15 @@ impl StoryWorkspace {
             Axis::Vertical,
             vec![DockItem::tabs(
                 vec![
+                    /*
                     Arc::new(StoryContainer::panel::<ButtonStory>(cx)),
                     Arc::new(StoryContainer::panel::<InputStory>(cx)),
                     Arc::new(StoryContainer::panel::<DropdownStory>(cx)),
                     Arc::new(StoryContainer::panel::<TextStory>(cx)),
                     Arc::new(StoryContainer::panel::<ModalStory>(cx)),
+                    */
                     Arc::new(StoryContainer::panel::<PopupStory>(cx)),
+                    /*
                     Arc::new(StoryContainer::panel::<SwitchStory>(cx)),
                     Arc::new(StoryContainer::panel::<ProgressStory>(cx)),
                     Arc::new(StoryContainer::panel::<TableStory>(cx)),
@@ -228,6 +231,7 @@ impl StoryWorkspace {
                     Arc::new(StoryContainer::panel::<CalendarStory>(cx)),
                     Arc::new(StoryContainer::panel::<ResizableStory>(cx)),
                     Arc::new(StoryContainer::panel::<ScrollableStory>(cx)),
+                    */
                 ],
                 None,
                 &dock_area,
