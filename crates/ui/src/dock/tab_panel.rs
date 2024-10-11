@@ -176,7 +176,7 @@ impl TabPanel {
             return;
         }
 
-        println!("add_panel: {}", panel.panel_name(cx));
+        println!("tab_panel::add_panel: {}", panel.panel_name(cx));
         self.panels.push(panel);
         // set the active panel to the new panel
         self.set_active_ix(self.panels.len() - 1, cx);
