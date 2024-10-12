@@ -71,7 +71,7 @@ pub fn init(cx: &mut AppContext) {
             let (title, description, closeable, zoomable, story) = story_state.to_story(cx);
             let mut container = StoryContainer::new(cx).story(story, story_state.story_klass);
             container.name = title.into();
-            println!("container.name: {:?}", container.name);
+            println!("register_panel: container.name: {:?}", container.name);
             container.description = description.into();
             container.closeable = closeable;
             container.zoomable = zoomable;
