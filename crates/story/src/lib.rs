@@ -55,10 +55,9 @@ use ui::{
 const PANEL_NAME: &str = "StoryContainer";
 
 pub fn init(cx: &mut AppContext) {
-    input_story::init(cx);
-    dropdown_story::init(cx);
-    popup_story::init(cx);
-
+    //input_story::init(cx);
+    //dropdown_story::init(cx);
+    //popup_story::init(cx);
     register_panel(cx, PANEL_NAME, |_, _, info, cx| {
         let story_state = match info {
             DockItemInfo::Panel(value) => StoryState::from_value(value.clone()),
