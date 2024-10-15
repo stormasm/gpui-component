@@ -6,55 +6,6 @@ use serde::{de::Error, Deserialize, Deserializer};
 use crate::theme::hsl;
 use anyhow::Result;
 
-pub(crate) trait ColorExt {
-    fn to_hex_string(&self) -> String;
-    fn parse_hex_string(hex: &str) -> Result<Hsla>;
-}
-
-impl ColorExt for Hsla {
-    fn to_hex_string(&self) -> String {
-        let rgb = self.to_rgb();
-
-        if rgb.a < 1. {
-            return format!(
-                "#{:02X}{:02X}{:02X}{:02X}",
-                ((rgb.r * 255.) as u32),
-                ((rgb.g * 255.) as u32),
-                ((rgb.b * 255.) as u32),
-                ((self.a * 255.) as u32)
-            );
-        }
-
-        format!(
-            "#{:02X}{:02X}{:02X}",
-            ((rgb.r * 255.) as u32),
-            ((rgb.g * 255.) as u32),
-            ((rgb.b * 255.) as u32)
-        )
-    }
-
-    fn parse_hex_string(hex: &str) -> Result<Hsla> {
-        let hex = hex.trim_start_matches('#');
-        let len = hex.len();
-        if len != 6 && len != 8 {
-            return Err(anyhow::anyhow!("invalid hex color"));
-        }
-
-        let r = u8::from_str_radix(&hex[0..2], 16)? as f32 / 255.;
-        let g = u8::from_str_radix(&hex[2..4], 16)? as f32 / 255.;
-        let b = u8::from_str_radix(&hex[4..6], 16)? as f32 / 255.;
-        let a = if len == 8 {
-            u8::from_str_radix(&hex[6..8], 16)? as f32 / 255.
-        } else {
-            1.
-        };
-
-        let v = gpui::Rgba { r, g, b, a };
-        let color: Hsla = v.into();
-        Ok(color)
-    }
-}
-
 pub(crate) static DEFAULT_COLOR: once_cell::sync::Lazy<ShadcnColors> =
     once_cell::sync::Lazy::new(|| {
         serde_json::from_str(include_str!("../default-colors.json"))

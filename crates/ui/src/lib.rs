@@ -1,24 +1,3 @@
-/*
-mod colors;
-mod event;
-mod focusable;
-mod root;
-
-mod svg_img;
-mod time;
-*/
-
-/*
-pub mod animation;
-
-pub mod button_group;
-pub mod checkbox;
-pub mod clipboard;
-pub mod color_picker;
-pub mod context_menu;
-pub mod divider;
-*/
-
 mod colors;
 mod event;
 mod styled;
@@ -42,44 +21,6 @@ pub use colors::*;
 pub use icon::*;
 pub use styled::*;
 
-/*
-pub mod drawer;
-pub mod dropdown;
-
-pub mod label;
-pub mod link;
-
-pub mod modal;
-pub mod notification;
-pub mod popover;
-
-pub mod prelude;
-pub mod progress;
-pub mod radio;
-
-pub mod skeleton;
-pub mod slider;
-pub mod switch;
-
-pub mod table;
-
-
-pub mod webview;
-
-// re-export
-pub use wry;
-
-pub use crate::Disableable;
-pub use event::InteractiveElementExt;
-pub use focusable::FocusableCycle;
-pub use root::{ContextModal, Root};
-
-pub use time::*;
-
-
-
-pub use svg_img::*;
-*/
 /// Initialize the UI module.
 pub fn init(cx: &mut gpui::AppContext) {
     /*
