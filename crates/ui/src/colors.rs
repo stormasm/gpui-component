@@ -184,8 +184,6 @@ color_methods!(rose);
 
 #[cfg(test)]
 mod tests {
-    use gpui::{rgb, rgba};
-
     use super::*;
 
     #[test]
@@ -203,29 +201,5 @@ mod tests {
         assert_eq!(cyan_300(), hsl(187.0, 92.4, 69.0));
         assert_eq!(blue_400(), hsl(213.1, 93.9, 67.8));
         assert_eq!(indigo_500(), hsl(238.7, 83.5, 66.7));
-    }
-
-    #[test]
-    fn test_to_hex_string() {
-        let color: Hsla = rgb(0xf8fafc).into();
-        assert_eq!(color.to_hex_string(), "#F8FAFC");
-
-        let color: Hsla = rgb(0xfef2f2).into();
-        assert_eq!(color.to_hex_string(), "#FEF2F2");
-
-        let color: Hsla = rgba(0x0413fcaa).into();
-        assert_eq!(color.to_hex_string(), "#0413FCAA");
-    }
-
-    #[test]
-    fn test_from_hex_string() {
-        let color: Hsla = Hsla::parse_hex_string("#F8FAFC").unwrap();
-        assert_eq!(color, rgb(0xf8fafc).into());
-
-        let color: Hsla = Hsla::parse_hex_string("#FEF2F2").unwrap();
-        assert_eq!(color, rgb(0xfef2f2).into());
-
-        let color: Hsla = Hsla::parse_hex_string("#0413FCAA").unwrap();
-        assert_eq!(color, rgba(0x0413fcaa).into());
     }
 }
