@@ -3,11 +3,13 @@ mod event;
 mod styled;
 
 pub mod button;
+pub mod divider;
 pub mod dock;
 pub mod history;
 pub mod icon;
 pub mod indicator;
 pub mod input;
+pub mod label;
 pub mod list;
 pub mod popover;
 pub mod popup_menu;
