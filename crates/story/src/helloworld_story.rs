@@ -1,9 +1,6 @@
-use gpui::{
-    CursorStyle, InteractiveElement, ParentElement, Render, StatefulInteractiveElement, Styled,
-    View, ViewContext, VisualContext as _, WindowContext,
-};
+use gpui::{ParentElement, Render, Styled, View, ViewContext, VisualContext as _, WindowContext};
 
-use ui::{h_flex, label::Label, tooltip::Tooltip, v_flex};
+use ui::{h_flex, label::Label, v_flex};
 
 pub struct HwStory {
     focus_handle: gpui::FocusHandle,
@@ -41,13 +38,9 @@ impl gpui::FocusableView for HwStory {
 }
 impl Render for HwStory {
     fn render(&mut self, _: &mut gpui::ViewContext<Self>) -> impl gpui::IntoElement {
-        v_flex().p_4().gap_5().child(
-            h_flex()
-                .justify_center()
-                .cursor(CursorStyle::PointingHand)
-                .child(Label::new("Hello World"))
-                .id("tooltip-1")
-                .tooltip(|cx| Tooltip::new("This is a Beautiful place !", cx)),
-        )
+        v_flex()
+            .p_4()
+            .gap_5()
+            .child(h_flex().justify_center().child(Label::new("Hello World")))
     }
 }
