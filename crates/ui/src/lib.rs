@@ -1,17 +1,20 @@
 mod colors;
 mod event;
+mod root;
 mod styled;
 
 pub mod animation;
 pub mod button;
 pub mod divider;
 pub mod dock;
+pub mod drawer;
 pub mod history;
 pub mod icon;
 pub mod indicator;
 pub mod input;
 pub mod label;
 pub mod list;
+pub mod modal;
 pub mod notification;
 pub mod popover;
 pub mod popup_menu;
@@ -25,6 +28,8 @@ pub use colors::*;
 pub use icon::*;
 pub use styled::*;
 
+pub use root::{ContextModal, Root};
+
 /// Initialize the UI module.
 pub fn init(cx: &mut gpui::AppContext) {
     /*
@@ -33,6 +38,8 @@ pub fn init(cx: &mut gpui::AppContext) {
         date_picker::init(cx);
     */
     dock::init(cx);
+    drawer::init(cx);
+    modal::init(cx);
     /*
         drawer::init(cx);
         dropdown::init(cx);
