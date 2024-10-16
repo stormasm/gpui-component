@@ -42,7 +42,7 @@ pub fn init(_app_state: Arc<AppState>, cx: &mut AppContext) {
 pub struct StoryWorkspace {
     dock_area: View<DockArea>,
     locale_selector: View<LocaleSelector>,
-    theme_color_picker: View<ColorPicker>,
+    //theme_color_picker: View<ColorPicker>,
     last_layout_state: Option<DockAreaState>,
     _save_layout_task: Option<Task<()>>,
 }
@@ -92,6 +92,7 @@ impl StoryWorkspace {
 
         let locale_selector = cx.new_view(LocaleSelector::new);
 
+        /*
         let theme_color_picker = cx.new_view(|cx| {
             let mut picker = ColorPicker::new("theme-color-picker", cx)
                 .xsmall()
@@ -115,11 +116,12 @@ impl StoryWorkspace {
             },
         )
         .detach();
+        */
 
         Self {
             dock_area,
             locale_selector,
-            theme_color_picker,
+            //theme_color_picker,
             last_layout_state: None,
             _save_layout_task: None,
         }
