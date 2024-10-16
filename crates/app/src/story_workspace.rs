@@ -1,6 +1,6 @@
 use anyhow::{Context, Result};
 use gpui::*;
-use prelude::FluentBuilder as _;
+//use prelude::FluentBuilder as _;
 use serde::Deserialize;
 use std::{sync::Arc, time::Duration};
 use story::{HwStory, StoryContainer};
@@ -8,9 +8,9 @@ use ui::{
     button::{Button, ButtonStyled as _},
     //color_picker::{ColorPicker, ColorPickerEvent},
     dock::{DockArea, DockAreaState, DockEvent, DockItem, PanelView},
-    h_flex,
+    //h_flex,
     popup_menu::PopupMenuExt,
-    theme::{ActiveTheme, Colorize as _, Theme},
+    theme::{ActiveTheme, Theme},
     ContextModal,
     IconName,
     Root,
@@ -41,7 +41,7 @@ pub fn init(_app_state: Arc<AppState>, cx: &mut AppContext) {
 
 pub struct StoryWorkspace {
     dock_area: View<DockArea>,
-    locale_selector: View<LocaleSelector>,
+    //locale_selector: View<LocaleSelector>,
     //theme_color_picker: View<ColorPicker>,
     last_layout_state: Option<DockAreaState>,
     _save_layout_task: Option<Task<()>>,
@@ -90,7 +90,7 @@ impl StoryWorkspace {
         })
         .detach();
 
-        let locale_selector = cx.new_view(LocaleSelector::new);
+        let _locale_selector = cx.new_view(LocaleSelector::new);
 
         /*
         let theme_color_picker = cx.new_view(|cx| {
@@ -120,7 +120,7 @@ impl StoryWorkspace {
 
         Self {
             dock_area,
-            locale_selector,
+            //locale_selector,
             //theme_color_picker,
             last_layout_state: None,
             _save_layout_task: None,
@@ -306,7 +306,7 @@ impl Render for StoryWorkspace {
         let drawer_layer = Root::render_drawer_layer(cx);
         let modal_layer = Root::render_modal_layer(cx);
         let notification_layer = Root::render_notification_layer(cx);
-        let notifications_count = cx.notifications().len();
+        let _notifications_count = cx.notifications().len();
 
         div()
             .font_family(".SystemUIFont")
