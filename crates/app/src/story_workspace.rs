@@ -3,21 +3,20 @@ use gpui::*;
 use prelude::FluentBuilder as _;
 use serde::Deserialize;
 use std::{sync::Arc, time::Duration};
-use story::{
-    ButtonStory, CalendarStory, DropdownStory, IconStory, ImageStory, InputStory, ListStory,
-    ModalStory, PopupStory, ProgressStory, ResizableStory, ScrollableStory, StoryContainer,
-    SwitchStory, TableStory, TextStory, TooltipStory,
-};
+use story::{HwStory, StoryContainer};
 use ui::{
     button::{Button, ButtonStyled as _},
-    color_picker::{ColorPicker, ColorPickerEvent},
+    //color_picker::{ColorPicker, ColorPickerEvent},
     dock::{DockArea, DockAreaState, DockEvent, DockItem, PanelView},
     h_flex,
     popup_menu::PopupMenuExt,
     theme::{ActiveTheme, Colorize as _, Theme},
-    ContextModal, IconName, Root, Sizable,
+    ContextModal,
+    IconName,
+    Root,
+    Sizable,
 };
-use workspace::TitleBar;
+//use workspace::TitleBar;
 
 use crate::app_state::AppState;
 
@@ -186,15 +185,13 @@ impl StoryWorkspace {
     fn reset_default_layout(dock_area: WeakView<DockArea>, cx: &mut WindowContext) {
         let dock_item = Self::init_default_layout(&dock_area, cx);
         let left_panels: Vec<Arc<dyn PanelView>> =
-            vec![Arc::new(StoryContainer::panel::<ListStory>(cx))];
+            vec![Arc::new(StoryContainer::panel::<HwStory>(cx))];
 
-        let bottom_panels: Vec<Arc<dyn PanelView>> = vec![
-            Arc::new(StoryContainer::panel::<TooltipStory>(cx)),
-            Arc::new(StoryContainer::panel::<IconStory>(cx)),
-        ];
+        let bottom_panels: Vec<Arc<dyn PanelView>> =
+            vec![Arc::new(StoryContainer::panel::<HwStory>(cx))];
 
         let right_panels: Vec<Arc<dyn PanelView>> =
-            vec![Arc::new(StoryContainer::panel::<ImageStory>(cx))];
+            vec![Arc::new(StoryContainer::panel::<HwStory>(cx))];
 
         _ = dock_area.update(cx, |view, cx| {
             view.set_version(MAIN_DOCK_AREA.version, cx);
@@ -212,6 +209,8 @@ impl StoryWorkspace {
             Axis::Vertical,
             vec![DockItem::tabs(
                 vec![
+                    Arc::new(StoryContainer::panel::<HwStory>(cx)),
+                    /*
                     Arc::new(StoryContainer::panel::<ButtonStory>(cx)),
                     Arc::new(StoryContainer::panel::<InputStory>(cx)),
                     Arc::new(StoryContainer::panel::<DropdownStory>(cx)),
@@ -228,7 +227,8 @@ impl StoryWorkspace {
                     Arc::new(StoryContainer::panel::<CalendarStory>(cx)),
                     Arc::new(StoryContainer::panel::<ResizableStory>(cx)),
                     Arc::new(StoryContainer::panel::<ScrollableStory>(cx)),
-                    // Arc::new(StoryContainer::panel::<WebViewStory>(cx)),
+                    Arc::new(StoryContainer::panel::<WebViewStory>(cx)),
+                    */
                 ],
                 None,
                 &dock_area,
@@ -314,6 +314,7 @@ impl Render for StoryWorkspace {
             .flex_col()
             .bg(cx.theme().background)
             .text_color(cx.theme().foreground)
+            /*
             .child(
                 TitleBar::new("main-title", Box::new(CloseWindow))
                     .when(cfg!(not(windows)), |this| {
@@ -349,7 +350,6 @@ impl Render for StoryWorkspace {
                                             true => ui::theme::ThemeMode::Light,
                                             false => ui::theme::ThemeMode::Dark,
                                         };
-
                                         Theme::change(mode, cx);
                                     }),
                             )
@@ -393,6 +393,7 @@ impl Render for StoryWorkspace {
                             ),
                     ),
             )
+            */
             .child(self.dock_area.clone())
             .children(drawer_layer)
             .children(modal_layer)
