@@ -2,6 +2,7 @@ mod colors;
 mod event;
 mod styled;
 
+pub mod animation;
 pub mod button;
 pub mod divider;
 pub mod dock;
@@ -11,6 +12,7 @@ pub mod indicator;
 pub mod input;
 pub mod label;
 pub mod list;
+pub mod notification;
 pub mod popover;
 pub mod popup_menu;
 pub mod resizable;
