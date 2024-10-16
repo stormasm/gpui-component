@@ -17,7 +17,7 @@ use ui::{
     notification::Notification,
     popup_menu::PopupMenu,
     theme::ActiveTheme,
-    v_flex,
+    v_flex, ContextModal,
 };
 
 const PANEL_NAME: &str = "StoryContainer";
