@@ -32,25 +32,9 @@ pub use root::{ContextModal, Root};
 
 /// Initialize the UI module.
 pub fn init(cx: &mut gpui::AppContext) {
-    /*
-        theme::init(cx);
-        context_menu::init(cx);
-        date_picker::init(cx);
-    */
     dock::init(cx);
     drawer::init(cx);
     modal::init(cx);
-    /*
-        drawer::init(cx);
-        dropdown::init(cx);
-        input::init(cx);
-        list::init(cx);
-        modal::init(cx);
-        popover::init(cx);
-        popup_menu::init(cx);
-        table::init(cx);
-        webview::init(cx);
-    */
 }
 
 rust_i18n::i18n!("locales", fallback = "en");
