@@ -1,22 +1,15 @@
 use anyhow::{Context, Result};
 use gpui::*;
-//use prelude::FluentBuilder as _;
 use serde::Deserialize;
 use std::{sync::Arc, time::Duration};
 use story::{HwStory, StoryContainer};
 use ui::{
     button::{Button, ButtonStyled as _},
-    //color_picker::{ColorPicker, ColorPickerEvent},
     dock::{DockArea, DockAreaState, DockEvent, DockItem, PanelView},
-    //h_flex,
     popup_menu::PopupMenuExt,
     theme::{ActiveTheme, Theme},
-    ContextModal,
-    IconName,
-    Root,
-    Sizable,
+    ContextModal, IconName, Root, Sizable,
 };
-//use workspace::TitleBar;
 
 use crate::app_state::AppState;
 
@@ -41,8 +34,6 @@ pub fn init(_app_state: Arc<AppState>, cx: &mut AppContext) {
 
 pub struct StoryWorkspace {
     dock_area: View<DockArea>,
-    //locale_selector: View<LocaleSelector>,
-    //theme_color_picker: View<ColorPicker>,
     last_layout_state: Option<DockAreaState>,
     _save_layout_task: Option<Task<()>>,
 }
@@ -91,32 +82,6 @@ impl StoryWorkspace {
         .detach();
 
         let _locale_selector = cx.new_view(LocaleSelector::new);
-
-        /*
-        let theme_color_picker = cx.new_view(|cx| {
-            let mut picker = ColorPicker::new("theme-color-picker", cx)
-                .xsmall()
-                .anchor(AnchorCorner::TopRight)
-                .label("Primary Color");
-            picker.set_value(cx.theme().primary, cx);
-            picker
-        });
-        cx.subscribe(
-            &theme_color_picker,
-            |_, _, ev: &ColorPickerEvent, cx| match ev {
-                ColorPickerEvent::Change(color) => {
-                    if let Some(color) = color {
-                        let theme = cx.global_mut::<Theme>();
-                        theme.primary = *color;
-                        theme.primary_hover = color.lighten(0.1);
-                        theme.primary_active = color.darken(0.1);
-                        cx.refresh();
-                    }
-                }
-            },
-        )
-        .detach();
-        */
 
         Self {
             dock_area,
@@ -210,28 +175,7 @@ impl StoryWorkspace {
         DockItem::split_with_sizes(
             Axis::Vertical,
             vec![DockItem::tabs(
-                vec![
-                    Arc::new(StoryContainer::panel::<HwStory>(cx)),
-                    /*
-                    Arc::new(StoryContainer::panel::<ButtonStory>(cx)),
-                    Arc::new(StoryContainer::panel::<InputStory>(cx)),
-                    Arc::new(StoryContainer::panel::<DropdownStory>(cx)),
-                    Arc::new(StoryContainer::panel::<TextStory>(cx)),
-                    Arc::new(StoryContainer::panel::<ModalStory>(cx)),
-                    Arc::new(StoryContainer::panel::<PopupStory>(cx)),
-                    Arc::new(StoryContainer::panel::<SwitchStory>(cx)),
-                    Arc::new(StoryContainer::panel::<ProgressStory>(cx)),
-                    Arc::new(StoryContainer::panel::<TableStory>(cx)),
-                    Arc::new(StoryContainer::panel::<ImageStory>(cx)),
-                    Arc::new(StoryContainer::panel::<IconStory>(cx)),
-                    Arc::new(StoryContainer::panel::<TooltipStory>(cx)),
-                    Arc::new(StoryContainer::panel::<ProgressStory>(cx)),
-                    Arc::new(StoryContainer::panel::<CalendarStory>(cx)),
-                    Arc::new(StoryContainer::panel::<ResizableStory>(cx)),
-                    Arc::new(StoryContainer::panel::<ScrollableStory>(cx)),
-                    Arc::new(StoryContainer::panel::<WebViewStory>(cx)),
-                    */
-                ],
+                vec![Arc::new(StoryContainer::panel::<HwStory>(cx))],
                 None,
                 &dock_area,
                 cx,
@@ -316,86 +260,6 @@ impl Render for StoryWorkspace {
             .flex_col()
             .bg(cx.theme().background)
             .text_color(cx.theme().foreground)
-            /*
-            .child(
-                TitleBar::new("main-title", Box::new(CloseWindow))
-                    .when(cfg!(not(windows)), |this| {
-                        this.on_click(|event, cx| {
-                            if event.up.click_count == 2 {
-                                cx.zoom_window();
-                            }
-                        })
-                    })
-                    // left side
-                    .child(div().flex().items_center().child("GPUI App"))
-                    .child(
-                        div()
-                            .flex()
-                            .items_center()
-                            .justify_end()
-                            .px_2()
-                            .gap_2()
-                            .child(self.theme_color_picker.clone())
-                            .child(
-                                Button::new("theme-mode")
-                                    .map(|this| {
-                                        if cx.theme().mode.is_dark() {
-                                            this.icon(IconName::Sun)
-                                        } else {
-                                            this.icon(IconName::Moon)
-                                        }
-                                    })
-                                    .small()
-                                    .ghost()
-                                    .on_click(move |_, cx| {
-                                        let mode = match cx.theme().mode.is_dark() {
-                                            true => ui::theme::ThemeMode::Light,
-                                            false => ui::theme::ThemeMode::Dark,
-                                        };
-                                        Theme::change(mode, cx);
-                                    }),
-                            )
-                            .child(self.locale_selector.clone())
-                            .child(
-                                Button::new("github")
-                                    .icon(IconName::GitHub)
-                                    .small()
-                                    .ghost()
-                                    .on_click(|_, cx| {
-                                        cx.open_url("https://github.com/huacnlee/gpui-component")
-                                    }),
-                            )
-                            .child(
-                                div()
-                                    .relative()
-                                    .child(
-                                        Button::new("bell")
-                                            .small()
-                                            .ghost()
-                                            .compact()
-                                            .icon(IconName::Bell),
-                                    )
-                                    .when(notifications_count > 0, |this| {
-                                        this.child(
-                                            h_flex()
-                                                .absolute()
-                                                .rounded_full()
-                                                .top(px(-2.))
-                                                .right(px(-2.))
-                                                .p(px(1.))
-                                                .min_w(px(12.))
-                                                .bg(ui::red_500())
-                                                .text_color(ui::white())
-                                                .justify_center()
-                                                .text_size(px(10.))
-                                                .line_height(relative(1.))
-                                                .child(format!("{}", notifications_count.min(99))),
-                                        )
-                                    }),
-                            ),
-                    ),
-            )
-            */
             .child(self.dock_area.clone())
             .children(drawer_layer)
             .children(modal_layer)
