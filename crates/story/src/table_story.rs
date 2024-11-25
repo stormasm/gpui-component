@@ -381,7 +381,7 @@ impl TableStory {
             input
         });
 
-        let delegate = StockTableDelegate::new(5000);
+        let delegate = StockTableDelegate::new(5);
         let table = cx.new_view(|cx| Table::new(delegate, cx));
 
         cx.subscribe(&table, Self::on_table_event).detach();
