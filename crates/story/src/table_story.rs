@@ -672,116 +672,11 @@ impl TableStory {
 
 impl Render for TableStory {
     fn render(&mut self, cx: &mut ViewContext<Self>) -> impl gpui::IntoElement {
-        let delegate = self.table.read(cx).delegate();
-        let rows_count = delegate.rows_count(cx);
-        let size = self.size;
-
         v_flex()
             .on_action(cx.listener(Self::on_change_size))
             .size_full()
             .text_sm()
             .gap_2()
-            .child(
-                h_flex()
-                    .items_center()
-                    .gap_3()
-                    .flex_wrap()
-                    .child(
-                        Button::new("size")
-                            .compact()
-                            .outline()
-                            .label(format!("size: {:?}", self.size))
-                            .popup_menu(move |menu, _| {
-                                menu.menu_with_check(
-                                    "Large",
-                                    size == Size::Large,
-                                    Box::new(ChangeSize(Size::Large)),
-                                )
-                                .menu_with_check(
-                                    "Medium",
-                                    size == Size::Medium,
-                                    Box::new(ChangeSize(Size::Medium)),
-                                )
-                                .menu_with_check(
-                                    "Small",
-                                    size == Size::Small,
-                                    Box::new(ChangeSize(Size::Small)),
-                                )
-                                .menu_with_check(
-                                    "XSmall",
-                                    size == Size::XSmall,
-                                    Box::new(ChangeSize(Size::XSmall)),
-                                )
-                            }),
-                    )
-                    .child(
-                        Checkbox::new("loop-selection")
-                            .label("Loop Selection")
-                            .selected(delegate.loop_selection)
-                            .on_click(cx.listener(Self::toggle_loop_selection)),
-                    )
-                    .child(
-                        Checkbox::new("col-resize")
-                            .label("Column Resize")
-                            .selected(delegate.col_resize)
-                            .on_click(cx.listener(Self::toggle_col_resize)),
-                    )
-                    .child(
-                        Checkbox::new("col-order")
-                            .label("Column Order")
-                            .selected(delegate.col_order)
-                            .on_click(cx.listener(Self::toggle_col_order)),
-                    )
-                    .child(
-                        Checkbox::new("col-sort")
-                            .label("Column Sort")
-                            .selected(delegate.col_sort)
-                            .on_click(cx.listener(Self::toggle_col_sort)),
-                    )
-                    .child(
-                        Checkbox::new("col-selection")
-                            .label("Column Selection")
-                            .selected(delegate.col_selection)
-                            .on_click(cx.listener(Self::toggle_col_selection)),
-                    )
-                    .child(
-                        Checkbox::new("stripe")
-                            .label("Stripe")
-                            .selected(self.stripe)
-                            .on_click(cx.listener(Self::toggle_stripe)),
-                    )
-                    .child(
-                        Checkbox::new("fixed-cols")
-                            .label("Fixed Columns")
-                            .selected(delegate.fixed_cols)
-                            .on_click(cx.listener(Self::toggle_fixed_cols)),
-                    )
-                    .child(
-                        Checkbox::new("refresh-data")
-                            .label("Refresh Data")
-                            .selected(self.refresh_data)
-                            .on_click(cx.listener(Self::toggle_refresh_data)),
-                    ),
-            )
-            .child(
-                h_flex().items_center().gap_2().child(
-                    h_flex()
-                        .items_center()
-                        .gap_1()
-                        .child(Label::new("Number of Stocks:"))
-                        .child(
-                            h_flex()
-                                .min_w_32()
-                                .child(self.num_stocks_input.clone())
-                                .into_any_element(),
-                        )
-                        .when(delegate.loading, |this| {
-                            this.child(h_flex().gap_1().child(Indicator::new()).child("Loading..."))
-                        })
-                        .child(format!("Total Rows: {}", rows_count))
-                        .when(delegate.is_eof, |this| this.child("All data loaded.")),
-                ),
-            )
             .child(self.table.clone())
     }
 }
