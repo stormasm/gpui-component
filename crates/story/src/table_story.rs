@@ -47,19 +47,17 @@ fn random_stocks(size: usize) -> Vec<Stock> {
 struct Column {
     id: SharedString,
     name: SharedString,
-    sort: Option<ColSort>,
 }
 
 impl Column {
     fn new(
         id: impl Into<SharedString>,
         name: impl Into<SharedString>,
-        sort: Option<ColSort>,
+        _sort: Option<ColSort>,
     ) -> Self {
         Self {
             id: id.into(),
             name: name.into(),
-            sort,
         }
     }
 }
@@ -68,14 +66,6 @@ struct StockTableDelegate {
     stocks: Vec<Stock>,
     columns: Vec<Column>,
     size: Size,
-    loop_selection: bool,
-    col_resize: bool,
-    col_order: bool,
-    col_sort: bool,
-    col_selection: bool,
-    loading: bool,
-    fixed_cols: bool,
-    is_eof: bool,
 }
 
 impl StockTableDelegate {
@@ -89,21 +79,11 @@ impl StockTableDelegate {
                 Column::new("name", "Name", None),
                 Column::new("price", "Price", Some(ColSort::Default)),
             ],
-            loop_selection: true,
-            col_resize: true,
-            col_order: true,
-            col_sort: true,
-            col_selection: true,
-            fixed_cols: false,
-            loading: false,
-            is_eof: false,
         }
     }
 
     fn update_stocks(&mut self, size: usize) {
         self.stocks = random_stocks(size);
-        self.is_eof = false;
-        self.loading = false;
     }
 
     fn render_value_cell(&self, val: f64) -> AnyElement {
@@ -162,23 +142,11 @@ impl TableDelegate for StockTableDelegate {
     }
 
     fn col_fixed(&self, col_ix: usize, _: &AppContext) -> Option<ui::table::ColFixed> {
-        if !self.fixed_cols {
-            return None;
-        }
-
         if col_ix < 4 {
             Some(ColFixed::Left)
         } else {
             None
         }
-    }
-
-    fn can_resize_col(&self, col_ix: usize, _: &AppContext) -> bool {
-        return self.col_resize && col_ix > 1;
-    }
-
-    fn can_select_col(&self, _: usize, _: &AppContext) -> bool {
-        return self.col_selection;
     }
 
     fn render_th(&self, col_ix: usize, cx: &mut ViewContext<Table<Self>>) -> impl IntoElement {
@@ -216,45 +184,9 @@ impl TableDelegate for StockTableDelegate {
         }
     }
 
-    fn can_loop_select(&self, _: &AppContext) -> bool {
-        self.loop_selection
-    }
-
-    fn can_move_col(&self, _: usize, _: &AppContext) -> bool {
-        self.col_order
-    }
-
     fn move_col(&mut self, col_ix: usize, to_ix: usize, _: &mut ViewContext<Table<Self>>) {
         let col = self.columns.remove(col_ix);
         self.columns.insert(to_ix, col);
-    }
-
-    fn col_sort(&self, col_ix: usize, _: &AppContext) -> Option<ColSort> {
-        if !self.col_sort {
-            return None;
-        }
-
-        self.columns.get(col_ix).and_then(|c| c.sort)
-    }
-
-    fn perform_sort(&mut self, col_ix: usize, sort: ColSort, _: &mut ViewContext<Table<Self>>) {
-        if !self.col_sort {
-            return;
-        }
-
-        if let Some(col) = self.columns.get_mut(col_ix) {
-            match col.id.as_ref() {
-                "id" => self.stocks.sort_by(|a, b| match sort {
-                    ColSort::Descending => b.id.cmp(&a.id),
-                    _ => a.id.cmp(&b.id),
-                }),
-                _ => {}
-            }
-        }
-    }
-
-    fn can_load_more(&self, _: &AppContext) -> bool {
-        return !self.loading && !self.is_eof;
     }
 
     fn load_more_threshold(&self) -> usize {
@@ -262,8 +194,6 @@ impl TableDelegate for StockTableDelegate {
     }
 
     fn load_more(&mut self, cx: &mut ViewContext<Table<Self>>) {
-        self.loading = true;
-
         cx.spawn(|view, mut cx| async move {
             // Simulate network request, delay 1s to load data.
             Timer::after(Duration::from_secs(1)).await;
@@ -271,8 +201,6 @@ impl TableDelegate for StockTableDelegate {
             cx.update(|cx| {
                 let _ = view.update(cx, |view, _| {
                     view.delegate_mut().stocks.extend(random_stocks(200));
-                    view.delegate_mut().loading = false;
-                    view.delegate_mut().is_eof = view.delegate().stocks.len() >= 6000;
                 });
             })
         })
