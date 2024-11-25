@@ -31,66 +31,11 @@ struct Stock {
     symbol: String,
     name: String,
     price: f64,
-    change: f64,
-    change_percent: f64,
-    volume: f64,
-    turnover: f64,
-    market_cap: f64,
-    ttm: f64,
-    five_mins_ranking: f64,
-    th60_days_ranking: f64,
-    year_change_percent: f64,
-    bid: f64,
-    bid_volume: f64,
-    ask: f64,
-    ask_volume: f64,
-    open: f64,
-    prev_close: f64,
-    high: f64,
-    low: f64,
-    turnover_rate: f64,
-    rise_rate: f64,
-    amplitude: f64,
-    pe_status: f64,
-    pb_status: f64,
-    volume_ratio: f64,
-    bid_ask_ratio: f64,
-    latest_pre_close: f64,
-    latest_post_close: f64,
-    pre_market_cap: f64,
-    pre_market_percent: f64,
-    pre_market_change: f64,
-    post_market_cap: f64,
-    post_market_percent: f64,
-    post_market_change: f64,
-    float_cap: f64,
-    shares: i64,
-    shares_float: i64,
-    day_5_ranking: f64,
-    day_10_ranking: f64,
-    day_30_ranking: f64,
-    day_120_ranking: f64,
-    day_250_ranking: f64,
 }
 
 impl Stock {
     fn random_update(&mut self) {
         self.price = (-300.0..999.999).fake::<f64>();
-        self.change = (-0.1..5.0).fake::<f64>();
-        self.change_percent = (-0.1..0.1).fake::<f64>();
-        self.volume = (-300.0..999.999).fake::<f64>();
-        self.turnover = (-300.0..999.999).fake::<f64>();
-        self.market_cap = (-1000.0..9999.999).fake::<f64>();
-        self.ttm = (-1000.0..9999.999).fake::<f64>();
-        self.five_mins_ranking = self.five_mins_ranking * (1.0 + (-0.2..0.2).fake::<f64>());
-        self.bid = self.price * (1.0 + (-0.2..0.2).fake::<f64>());
-        self.bid_volume = (100.0..1000.0).fake::<f64>();
-        self.ask = self.price * (1.0 + (-0.2..0.2).fake::<f64>());
-        self.ask_volume = (100.0..1000.0).fake::<f64>();
-        self.bid_ask_ratio = self.bid / self.ask;
-        self.volume_ratio = self.volume / self.turnover;
-        self.high = self.price * (1.0 + (0.0..1.5).fake::<f64>());
-        self.low = self.price * (1.0 + (-1.5..0.0).fake::<f64>());
     }
 }
 
@@ -100,46 +45,6 @@ fn random_stocks(size: usize) -> Vec<Stock> {
             id,
             symbol: Faker.fake::<String>(),
             name: Faker.fake::<String>(),
-            change: (-100.0..100.0).fake(),
-            change_percent: (-1.0..1.0).fake(),
-            volume: (0.0..1000.0).fake(),
-            turnover: (0.0..1000.0).fake(),
-            market_cap: (0.0..1000.0).fake(),
-            ttm: (0.0..1000.0).fake(),
-            five_mins_ranking: (0.0..1000.0).fake(),
-            th60_days_ranking: (0.0..1000.0).fake(),
-            year_change_percent: (-1.0..1.0).fake(),
-            bid: (0.0..1000.0).fake(),
-            bid_volume: (0.0..1000.0).fake(),
-            ask: (0.0..1000.0).fake(),
-            ask_volume: (0.0..1000.0).fake(),
-            open: (0.0..1000.0).fake(),
-            prev_close: (0.0..1000.0).fake(),
-            high: (0.0..1000.0).fake(),
-            low: (0.0..1000.0).fake(),
-            turnover_rate: (0.0..1.0).fake(),
-            rise_rate: (0.0..1.0).fake(),
-            amplitude: (0.0..1000.0).fake(),
-            pe_status: (0.0..1000.0).fake(),
-            pb_status: (0.0..1000.0).fake(),
-            volume_ratio: (0.0..1.0).fake(),
-            bid_ask_ratio: (0.0..1.0).fake(),
-            latest_pre_close: (0.0..1000.0).fake(),
-            latest_post_close: (0.0..1000.0).fake(),
-            pre_market_cap: (0.0..1000.0).fake(),
-            pre_market_percent: (-1.0..1.0).fake(),
-            pre_market_change: (-100.0..100.0).fake(),
-            post_market_cap: (0.0..1000.0).fake(),
-            post_market_percent: (-1.0..1.0).fake(),
-            post_market_change: (-100.0..100.0).fake(),
-            float_cap: (0.0..1000.0).fake(),
-            shares: (100000..9999999).fake(),
-            shares_float: (100000..9999999).fake(),
-            day_5_ranking: (0.0..1000.0).fake(),
-            day_10_ranking: (0.0..1000.0).fake(),
-            day_30_ranking: (0.0..1000.0).fake(),
-            day_120_ranking: (0.0..1000.0).fake(),
-            day_250_ranking: (0.0..1000.0).fake(),
             ..Default::default()
         })
         .collect()
@@ -361,52 +266,6 @@ impl TableDelegate for StockTableDelegate {
             "name" => stock.name.clone().into_any_element(),
             "symbol" => stock.symbol.clone().into_any_element(),
             "price" => self.render_value_cell(stock.price),
-            "change" => self.render_value_cell(stock.change),
-            "change_percent" => self.render_value_cell(stock.change_percent),
-            "volume" => self.render_value_cell(stock.volume),
-            "turnover" => self.render_value_cell(stock.turnover),
-            "market_cap" => self.render_value_cell(stock.market_cap),
-            "ttm" => self.render_value_cell(stock.ttm),
-            "five_mins_ranking" => self.render_value_cell(stock.five_mins_ranking),
-            "th60_days_ranking" => stock.th60_days_ranking.to_string().into_any_element(),
-            "year_change_percent" => (stock.year_change_percent * 100.0)
-                .to_string()
-                .into_any_element(),
-            "bid" => self.render_value_cell(stock.bid),
-            "bid_volume" => self.render_value_cell(stock.bid_volume),
-            "ask" => self.render_value_cell(stock.ask),
-            "ask_volume" => self.render_value_cell(stock.ask_volume),
-            "open" => stock.open.to_string().into_any_element(),
-            "prev_close" => stock.prev_close.to_string().into_any_element(),
-            "high" => self.render_value_cell(stock.high),
-            "low" => self.render_value_cell(stock.low),
-            "turnover_rate" => (stock.turnover_rate * 100.0).to_string().into_any_element(),
-            "rise_rate" => (stock.rise_rate * 100.0).to_string().into_any_element(),
-            "amplitude" => (stock.amplitude * 100.0).to_string().into_any_element(),
-            "pe_status" => stock.pe_status.to_string().into_any_element(),
-            "pb_status" => stock.pb_status.to_string().into_any_element(),
-            "volume_ratio" => self.render_value_cell(stock.volume_ratio),
-            "bid_ask_ratio" => self.render_value_cell(stock.bid_ask_ratio),
-            "latest_pre_close" => stock.latest_pre_close.to_string().into_any_element(),
-            "latest_post_close" => stock.latest_post_close.to_string().into_any_element(),
-            "pre_market_cap" => stock.pre_market_cap.to_string().into_any_element(),
-            "pre_market_percent" => (stock.pre_market_percent * 100.0)
-                .to_string()
-                .into_any_element(),
-            "pre_market_change" => stock.pre_market_change.to_string().into_any_element(),
-            "post_market_cap" => stock.post_market_cap.to_string().into_any_element(),
-            "post_market_percent" => (stock.post_market_percent * 100.0)
-                .to_string()
-                .into_any_element(),
-            "post_market_change" => stock.post_market_change.to_string().into_any_element(),
-            "float_cap" => stock.float_cap.to_string().into_any_element(),
-            "shares" => stock.shares.to_string().into_any_element(),
-            "shares_float" => stock.shares_float.to_string().into_any_element(),
-            "day_5_ranking" => stock.day_5_ranking.to_string().into_any_element(),
-            "day_10_ranking" => stock.day_10_ranking.to_string().into_any_element(),
-            "day_30_ranking" => stock.day_30_ranking.to_string().into_any_element(),
-            "day_120_ranking" => stock.day_120_ranking.to_string().into_any_element(),
-            "day_250_ranking" => stock.day_250_ranking.to_string().into_any_element(),
             _ => "--".to_string().into_any_element(),
         }
     }
@@ -518,7 +377,7 @@ impl TableStory {
             let mut input = TextInput::new(cx)
                 .placeholder("Enter number of Stocks to display")
                 .validate(|s| s.parse::<usize>().is_ok());
-            input.set_text("5000", cx);
+            input.set_text("5", cx);
             input
         });
 
