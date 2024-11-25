@@ -589,69 +589,12 @@ impl TableStory {
         }
     }
 
-    fn toggle_loop_selection(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.table.update(cx, |table, cx| {
-            table.delegate_mut().loop_selection = *checked;
-            cx.notify();
-        });
-    }
-
-    fn toggle_col_resize(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.table.update(cx, |table, cx| {
-            table.delegate_mut().col_resize = *checked;
-            cx.notify();
-        });
-    }
-
-    fn toggle_col_order(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.table.update(cx, |table, cx| {
-            table.delegate_mut().col_order = *checked;
-            cx.notify();
-        });
-    }
-
-    fn toggle_col_sort(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.table.update(cx, |table, cx| {
-            table.delegate_mut().col_sort = *checked;
-            cx.notify();
-        });
-    }
-
-    fn toggle_col_selection(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.table.update(cx, |table, cx| {
-            table.delegate_mut().col_selection = *checked;
-            cx.notify();
-        });
-    }
-
-    fn toggle_stripe(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.stripe = *checked;
-        let stripe = self.stripe;
-        self.table.update(cx, |table, cx| {
-            table.set_stripe(stripe, cx);
-            cx.notify();
-        });
-    }
-
-    fn toggle_fixed_cols(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.table.update(cx, |table, cx| {
-            table.delegate_mut().fixed_cols = *checked;
-            table.refresh(cx);
-            cx.notify();
-        });
-    }
-
     fn on_change_size(&mut self, a: &ChangeSize, cx: &mut ViewContext<Self>) {
         self.size = a.0;
         self.table.update(cx, |table, cx| {
             table.set_size(a.0, cx);
             table.delegate_mut().size = a.0;
         });
-    }
-
-    fn toggle_refresh_data(&mut self, checked: &bool, cx: &mut ViewContext<Self>) {
-        self.refresh_data = *checked;
-        cx.notify();
     }
 
     fn on_table_event(
