@@ -8,16 +8,10 @@ use gpui::{
 };
 use serde::Deserialize;
 use ui::{
-    button::{Button, ButtonStyled},
-    checkbox::Checkbox,
-    h_flex,
-    indicator::Indicator,
     input::{InputEvent, TextInput},
-    label::Label,
-    popup_menu::{PopupMenu, PopupMenuExt},
-    prelude::FluentBuilder as _,
+    popup_menu::PopupMenu,
     table::{ColFixed, ColSort, Table, TableDelegate, TableEvent},
-    v_flex, Selectable, Size, StyleSized as _,
+    v_flex, Size, StyleSized as _,
 };
 
 #[derive(Clone, PartialEq, Eq, Deserialize)]
@@ -289,7 +283,6 @@ impl TableDelegate for StockTableDelegate {
 pub struct TableStory {
     table: View<Table<StockTableDelegate>>,
     num_stocks_input: View<TextInput>,
-    stripe: bool,
     refresh_data: bool,
     size: Size,
 }
@@ -372,7 +365,6 @@ impl TableStory {
         Self {
             table,
             num_stocks_input,
-            stripe: false,
             refresh_data: false,
             size: Size::default(),
         }
