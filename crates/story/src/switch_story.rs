@@ -1,22 +1,16 @@
 use gpui::{
-    px, App, AppContext, Context, Div, Entity, Focusable, IntoElement, ParentElement, Render,
+    App, AppContext, Context, Div, Entity, Focusable, IntoElement, ParentElement, Render,
     SharedString, Styled, Window,
 };
 
-use gpui_component::{
-    h_flex, label::Label, switch::Switch, v_flex, ActiveTheme, Disableable as _, Side, Sizable,
-};
+use gpui_component::{h_flex, label::Label, switch::Switch, v_flex, ActiveTheme, Side};
 
-use crate::section;
-
-pub struct SwitchStory {
+pub struct Switch1Story {
     focus_handle: gpui::FocusHandle,
     switch1: bool,
-    switch2: bool,
-    switch3: bool,
 }
 
-impl super::Story for SwitchStory {
+impl super::Story for Switch1Story {
     fn title() -> &'static str {
         "Switch"
     }
@@ -30,7 +24,7 @@ impl super::Story for SwitchStory {
     }
 }
 
-impl SwitchStory {
+impl Switch1Story {
     pub fn view(window: &mut Window, cx: &mut App) -> Entity<Self> {
         cx.new(|cx| Self::new(window, cx))
     }
@@ -39,19 +33,17 @@ impl SwitchStory {
         Self {
             focus_handle: cx.focus_handle(),
             switch1: true,
-            switch2: false,
-            switch3: true,
         }
     }
 }
 
-impl Focusable for SwitchStory {
+impl Focusable for Switch1Story {
     fn focus_handle(&self, _: &gpui::App) -> gpui::FocusHandle {
         self.focus_handle.clone()
     }
 }
 
-impl Render for SwitchStory {
+impl Render for Switch1Story {
     fn render(&mut self, _: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         let theme = cx.theme();
 
@@ -59,7 +51,7 @@ impl Render for SwitchStory {
             v_flex().flex_1().gap_2().child(Label::new(title).text_xl())
         }
 
-        fn card(cx: &Context<SwitchStory>) -> Div {
+        fn card(cx: &Context<Switch1Story>) -> Div {
             h_flex()
                 .items_center()
                 .gap_4()
@@ -71,79 +63,25 @@ impl Render for SwitchStory {
         }
 
         v_flex().gap_6().child(
-            v_flex()
-                .items_start()
-                .justify_center()
-                .gap_4()
-                .child(
-                    card(cx)
-                        .child(
-                            title("Marketing emails").child(
-                                Label::new(
-                                    "Receive emails about new products, features, and more.",
-                                )
+            v_flex().items_start().justify_center().gap_4().child(
+                card(cx)
+                    .child(
+                        title("Marketing emails").child(
+                            Label::new("Receive emails about new products, features, and more.")
                                 .text_color(theme.muted_foreground),
-                            ),
-                        )
-                        .child(
-                            Switch::new("switch1")
-                                .checked(self.switch1)
-                                .label_side(Side::Left)
-                                .label("Subscribe")
-                                .on_click(cx.listener(move |view, checked, _, cx| {
-                                    view.switch1 = *checked;
-                                    cx.notify();
-                                })),
                         ),
-                )
-                .child(
-                    card(cx)
-                        .child(
-                            title("Security emails").child(
-                                Label::new(
-                                    "Receive emails about your account security. \
-                                    When turn off, you never receive email again.",
-                                )
-                                .text_color(theme.muted_foreground),
-                            ),
-                        )
-                        .child(
-                            Switch::new("switch2")
-                                .checked(self.switch2)
-                                .on_click(cx.listener(move |view, checked, _, cx| {
-                                    view.switch2 = *checked;
-                                    cx.notify();
-                                })),
-                        ),
-                )
-                .child(
-                    section("Disabled")
-                        .child(Switch::new("switch3").disabled(true).on_click(|v, _, _| {
-                            println!("Switch value changed: {:?}", v);
-                        }))
-                        .child(
-                            Switch::new("switch3_1")
-                                .w(px(200.))
-                                .label("Airplane Mode")
-                                .checked(true)
-                                .disabled(true)
-                                .on_click(|ev, _, _| {
-                                    println!("Switch value changed: {:?}", ev);
-                                }),
-                        ),
-                )
-                .child(
-                    section("Small Size").child(
-                        Switch::new("switch3")
-                            .checked(self.switch3)
-                            .label("Small Size")
-                            .small()
+                    )
+                    .child(
+                        Switch::new("switch1")
+                            .checked(self.switch1)
+                            .label_side(Side::Left)
+                            .label("Subscribe")
                             .on_click(cx.listener(move |view, checked, _, cx| {
-                                view.switch3 = *checked;
+                                view.switch1 = *checked;
                                 cx.notify();
                             })),
                     ),
-                ),
+            ),
         )
     }
 }
