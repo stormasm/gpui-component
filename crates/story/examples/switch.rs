@@ -1,13 +1,13 @@
 use gpui::*;
-use story::{Assets, Switch1Story};
+use story::{Assets, SwitchStory};
 
 pub struct Example {
-    story: Entity<Switch1Story>,
+    story: Entity<SwitchStory>,
 }
 
 impl Example {
     pub fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
-        let story = Switch1Story::view(window, cx);
+        let story = SwitchStory::view(window, cx);
 
         Self { story }
     }

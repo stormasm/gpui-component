@@ -29,6 +29,7 @@ mod resizable_story;
 mod scrollable_story;
 mod sidebar_story;
 mod slider_story;
+mod switch1_story;
 mod switch_story;
 mod table_story;
 mod tabs_story;
@@ -80,7 +81,8 @@ pub use scrollable_story::ScrollableStory;
 use serde::{Deserialize, Serialize};
 pub use sidebar_story::SidebarStory;
 pub use slider_story::SliderStory;
-pub use switch_story::Switch1Story;
+pub use switch1_story::Switch1Story;
+pub use switch_story::SwitchStory;
 pub use table_story::TableStory;
 pub use tabs_story::TabsStory;
 pub use tag_story::TagStory;
@@ -615,6 +617,7 @@ impl StoryState {
             "ProgressStory" => story!(ProgressStory),
             "ResizableStory" => story!(ResizableStory),
             "ScrollableStory" => story!(ScrollableStory),
+            "SwitchStory" => story!(SwitchStory),
             "Switch1Story" => story!(Switch1Story),
             "TableStory" => story!(TableStory),
             "LabelStory" => story!(LabelStory),
