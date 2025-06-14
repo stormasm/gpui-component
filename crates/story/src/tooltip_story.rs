@@ -6,7 +6,7 @@ use gpui::{
 
 use gpui_component::{
     button::{Button, ButtonVariant, ButtonVariants},
-    chart::BarChart,
+    chart::{BarChart, PieChart},
     checkbox::Checkbox,
     divider::Divider,
     dock::PanelControl,
@@ -248,6 +248,48 @@ impl Render for TooltipStory {
                     Switch::new("switch4")
                         .checked(true)
                         .tooltip("This is a switch 4"),
+                ),
+            )
+            .child(
+                h_flex()
+                    .gap_x_8()
+                    .h(px(450.))
+                    .child(chart_container(
+                        "Pie Chart",
+                        PieChart::new(self.monthly_devices.clone())
+                            .value(|d| d.desktop)
+                            .outer_radius(100.)
+                            .color(|d| d.color),
+                        true,
+                        cx,
+                    ))
+                    .child(chart_container(
+                        "Pie Chart - Donut",
+                        PieChart::new(self.monthly_devices.clone())
+                            .value(|d| d.desktop)
+                            .outer_radius(100.)
+                            .inner_radius(60.)
+                            .color(|d| d.color),
+                        true,
+                        cx,
+                    ))
+                    .child(chart_container(
+                        "Pie Chart - Pad Angle",
+                        PieChart::new(self.monthly_devices.clone())
+                            .value(|d| d.desktop)
+                            .outer_radius(100.)
+                            .inner_radius(60.)
+                            .pad_angle(4. / 100.)
+                            .color(|d| d.color),
+                        true,
+                        cx,
+                    )),
+            )
+            .child(
+                section("Switch Tooltip").child(
+                    Switch::new("switch5")
+                        .checked(true)
+                        .tooltip("This is a switch 5"),
                 ),
             )
     }
