@@ -130,9 +130,30 @@ impl Render for TooltipStory {
             )
             .child(
                 section("Switch Tooltip").child(
-                    Switch::new("switch")
+                    Switch::new("switch1")
                         .checked(true)
-                        .tooltip("This is a switch"),
+                        .tooltip("This is a switch 1"),
+                ),
+            )
+            .child(
+                section("Switch Tooltip").child(
+                    Switch::new("switch2")
+                        .checked(true)
+                        .tooltip("This is a switch 2"),
+                ),
+            )
+            .child(
+                section("Switch Tooltip").child(
+                    Switch::new("switch3")
+                        .checked(true)
+                        .tooltip("This is a switch 3"),
+                ),
+            )
+            .child(
+                section("Switch Tooltip").child(
+                    Switch::new("switch4")
+                        .checked(true)
+                        .tooltip("This is a switch 4"),
                 ),
             )
     }
