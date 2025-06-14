@@ -6,7 +6,7 @@ use gpui::{
 
 use gpui_component::{
     button::{Button, ButtonVariant, ButtonVariants},
-    chart::{BarChart, PieChart},
+    chart::{BarChart, LineChart, PieChart},
     checkbox::Checkbox,
     divider::Divider,
     dock::PanelControl,
@@ -285,6 +285,39 @@ impl Render for TooltipStory {
                         cx,
                     )),
             )
+            .child(Divider::horizontal())
+            .child(
+                h_flex()
+                    .gap_x_8()
+                    .h(px(400.))
+                    .child(chart_container(
+                        "Line Chart",
+                        LineChart::new(self.monthly_devices.clone())
+                            .x(|d| d.month.clone())
+                            .y(|d| d.desktop),
+                        false,
+                        cx,
+                    ))
+                    .child(chart_container(
+                        "Line Chart - Linear",
+                        LineChart::new(self.monthly_devices.clone())
+                            .x(|d| d.month.clone())
+                            .y(|d| d.desktop)
+                            .linear(),
+                        false,
+                        cx,
+                    ))
+                    .child(chart_container(
+                        "Line Chart - Dots",
+                        LineChart::new(self.monthly_devices.clone())
+                            .x(|d| d.month.clone())
+                            .y(|d| d.desktop)
+                            .dot(),
+                        false,
+                        cx,
+                    )),
+            )
+            .child(Divider::horizontal())
             .child(
                 section("Switch Tooltip").child(
                     Switch::new("switch5")
