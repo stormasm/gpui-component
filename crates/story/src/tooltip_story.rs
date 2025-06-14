@@ -1,22 +1,34 @@
 use gpui::{
-    actions, div, App, AppContext, Context, Entity, Focusable, InteractiveElement, KeyBinding,
-    ParentElement, Render, StatefulInteractiveElement, Styled, Window,
+    actions, div, prelude::FluentBuilder, px, App, AppContext, Context, Entity, Focusable, Hsla,
+    InteractiveElement, IntoElement, KeyBinding, ParentElement, Render, SharedString,
+    StatefulInteractiveElement, Styled, Window,
 };
 
 use gpui_component::{
     button::{Button, ButtonVariant, ButtonVariants},
+    chart::BarChart,
     checkbox::Checkbox,
+    divider::Divider,
     dock::PanelControl,
     h_flex,
     radio::Radio,
     switch::Switch,
     tooltip::Tooltip,
-    v_flex, ActiveTheme, IconName,
+    v_flex, ActiveTheme, IconName, StyledExt,
 };
+
+use serde::Deserialize;
 
 use crate::{section, Story};
 
 actions!(tooltip, [Info]);
+
+#[derive(Clone, Deserialize)]
+struct MonthlyDevice {
+    pub month: SharedString,
+    pub desktop: f64,
+    pub color: Hsla,
+}
 
 pub fn init(cx: &mut App) {
     cx.bind_keys([KeyBinding::new("ctrl-shift-delete", Info, Some("Tooltip"))]);
@@ -24,6 +36,7 @@ pub fn init(cx: &mut App) {
 
 pub struct TooltipStory {
     focus_handle: gpui::FocusHandle,
+    monthly_devices: Vec<MonthlyDevice>,
 }
 
 impl TooltipStory {
@@ -32,8 +45,14 @@ impl TooltipStory {
     }
 
     fn new(_: &mut Window, cx: &mut Context<Self>) -> Self {
+        let monthly_devices = serde_json::from_str::<Vec<MonthlyDevice>>(include_str!(
+            "fixtures/monthly-devices.json"
+        ))
+        .unwrap();
+
         Self {
             focus_handle: cx.focus_handle(),
+            monthly_devices,
         }
     }
 }
@@ -58,11 +77,54 @@ impl Focusable for TooltipStory {
     }
 }
 
+fn chart_container(
+    title: &str,
+    chart: impl IntoElement,
+    center: bool,
+    cx: &mut Context<TooltipStory>,
+) -> impl IntoElement {
+    v_flex()
+        .flex_1()
+        .h_full()
+        .border_1()
+        .border_color(cx.theme().border)
+        .rounded_lg()
+        .p_4()
+        .child(
+            div()
+                .when(center, |this| this.text_center())
+                .font_semibold()
+                .child(title.to_string()),
+        )
+        .child(
+            div()
+                .when(center, |this| this.text_center())
+                .text_color(cx.theme().muted_foreground)
+                .text_sm()
+                .child("January-June 2025"),
+        )
+        .child(div().flex_1().py_4().child(chart))
+        .child(
+            div()
+                .when(center, |this| this.text_center())
+                .font_semibold()
+                .text_sm()
+                .child("Trending up by 5.2% this month"),
+        )
+        .child(
+            div()
+                .when(center, |this| this.text_center())
+                .text_color(cx.theme().muted_foreground)
+                .text_sm()
+                .child("Showing total visitors for the last 6 months"),
+        )
+}
+
 impl Render for TooltipStory {
     fn render(
         &mut self,
         _: &mut gpui::Window,
-        _cx: &mut gpui::Context<Self>,
+        cx: &mut gpui::Context<Self>,
     ) -> impl gpui::IntoElement {
         v_flex()
             .p_4()
@@ -148,6 +210,38 @@ impl Render for TooltipStory {
                         .checked(true)
                         .tooltip("This is a switch 3"),
                 ),
+            )
+            .child(Divider::horizontal())
+            .child(
+                h_flex()
+                    .gap_x_8()
+                    .h(px(400.))
+                    .child(chart_container(
+                        "Bar Chart",
+                        BarChart::new(self.monthly_devices.clone())
+                            .x(|d| d.month.clone())
+                            .y(|d| d.desktop),
+                        false,
+                        cx,
+                    ))
+                    .child(chart_container(
+                        "Bar Chart - Mixed",
+                        BarChart::new(self.monthly_devices.clone())
+                            .x(|d| d.month.clone())
+                            .y(|d| d.desktop)
+                            .fill(|d| d.color),
+                        false,
+                        cx,
+                    ))
+                    .child(chart_container(
+                        "Bar Chart - Label",
+                        BarChart::new(self.monthly_devices.clone())
+                            .x(|d| d.month.clone())
+                            .y(|d| d.desktop)
+                            .label(|d| d.desktop.to_string()),
+                        false,
+                        cx,
+                    )),
             )
             .child(
                 section("Switch Tooltip").child(
