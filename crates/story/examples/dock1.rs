@@ -29,9 +29,9 @@ const MAIN_DOCK_AREA: DockAreaTab = DockAreaTab {
 };
 
 #[cfg(debug_assertions)]
-const STATE_FILE: &str = "target/docks.json";
+const STATE_FILE: &str = "target/docks1.json";
 #[cfg(not(debug_assertions))]
-const STATE_FILE: &str = "docks.json";
+const STATE_FILE: &str = "docks1.json";
 
 pub fn init(cx: &mut App) {
     cx.on_action(|_action: &Open, _cx: &mut App| {});
