@@ -10,10 +10,8 @@ use gpui_component::{
 use serde::Deserialize;
 use std::{sync::Arc, time::Duration};
 use story::{
-    AccordionStory, AppState, AppTitleBar, Assets, ButtonStory, CalendarStory, DropdownStory,
-    FormStory, IconStory, ImageStory, InputStory, LabelStory, ListStory, ModalStory, Open,
-    PopoverStory, ProgressStory, ResizableStory, ScrollableStory, SidebarStory, StoryContainer,
-    SwitchStory, TableStory, TooltipStory, WebViewStory,
+    AppState, AppTitleBar, Assets, ButtonStory, IconStory, ImageStory, InputStory, LabelStory,
+    Open, ResizableStory, ScrollableStory, StoryContainer, SwitchStory, TooltipStory,
 };
 
 #[derive(Clone, PartialEq, Eq, Deserialize)]
