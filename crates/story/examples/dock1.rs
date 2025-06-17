@@ -268,15 +268,15 @@ impl StoryWorkspace {
             Axis::Vertical,
             vec![
                 DockItem::tab(
-                    StoryContainer::panel::<ListStory>(window, cx),
+                    StoryContainer::panel::<InputStory>(window, cx),
                     &dock_area,
                     window,
                     cx,
                 ),
                 DockItem::tabs(
                     vec![
-                        Arc::new(StoryContainer::panel::<ScrollableStory>(window, cx)),
-                        Arc::new(StoryContainer::panel::<AccordionStory>(window, cx)),
+                        Arc::new(StoryContainer::panel::<TooltipStory>(window, cx)),
+                        Arc::new(StoryContainer::panel::<LabelStory>(window, cx)),
                     ],
                     None,
                     &dock_area,
@@ -351,7 +351,6 @@ impl StoryWorkspace {
             vec![DockItem::tabs(
                 vec![
                     Arc::new(StoryContainer::panel::<ButtonStory>(window, cx)),
-                    Arc::new(StoryContainer::panel::<LabelStory>(window, cx)),
                     Arc::new(StoryContainer::panel::<SwitchStory>(window, cx)),
                     Arc::new(StoryContainer::panel::<ResizableStory>(window, cx)),
                     Arc::new(StoryContainer::panel::<ScrollableStory>(window, cx)),
@@ -423,12 +422,11 @@ impl StoryWorkspace {
         cx: &mut Context<Self>,
     ) {
         // Random pick up a panel to add
-        let panel = match rand::random::<usize>() % 18 {
+        let panel = match rand::random::<usize>() % 4 {
             0 => Arc::new(StoryContainer::panel::<ButtonStory>(window, cx)),
-            3 => Arc::new(StoryContainer::panel::<LabelStory>(window, cx)),
-            6 => Arc::new(StoryContainer::panel::<SwitchStory>(window, cx)),
-            14 => Arc::new(StoryContainer::panel::<ResizableStory>(window, cx)),
-            15 => Arc::new(StoryContainer::panel::<ScrollableStory>(window, cx)),
+            1 => Arc::new(StoryContainer::panel::<SwitchStory>(window, cx)),
+            2 => Arc::new(StoryContainer::panel::<ResizableStory>(window, cx)),
+            3 => Arc::new(StoryContainer::panel::<ScrollableStory>(window, cx)),
             _ => Arc::new(StoryContainer::panel::<ButtonStory>(window, cx)),
         };
 
