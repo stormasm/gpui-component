@@ -62,6 +62,7 @@ struct DockAreaTab {
 
 impl StoryWorkspace {
     pub fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
+        println!("new StoryWorkspace");
         window
             .observe_window_appearance(|window, cx| {
                 Theme::sync_system_appearance(Some(window), cx);
