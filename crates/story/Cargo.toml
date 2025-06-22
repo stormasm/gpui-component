@@ -14,10 +14,9 @@ fake = { version = "2.10.0", features = ["dummy"] }
 rand = "0.8"
 raw-window-handle = { version = "0.6", features = ["std"] }
 regex = "1"
-#reqwest_client = { git = "https://github.com/zed-industries/zed.git" }
-reqwest_client = { path = "/Users/ma/j/tmp16/zed/crates/reqwest_client" }
+reqwest_client = { git = "https://github.com/zed-industries/zed.git" }
+#reqwest_client = { path = "/Users/ma/j/tmp16/zed/crates/reqwest_client" }
 #reqwest_client = { path = "/Users/ma/j/tmp16/gpuionly-250621/crates/reqwest_client" }
-
 
 rust-embed = "8.5.0"
 serde = "1"
